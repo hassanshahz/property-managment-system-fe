@@ -13,7 +13,12 @@ const AdminHome = () => {
     const fetchProperties = async () => {
       setLoading(true); // Set loading to true before fetching
       try {
-        const response = await axios.get('http://localhost:8080/api/property');
+        const token = localStorage.getItem('token')?.replace(/"/g, "");
+        const response = await axios.get('http://localhost:8080/api/property', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         setProperties(response.data);
       } catch (error) {
         setError('Error fetching properties');
@@ -70,7 +75,6 @@ const AdminHome = () => {
                 <td className="border border-gray-200 px-4 py-2">${property.price}</td>
                 <td className="border border-gray-200 px-4 py-2">{property.location}</td>
                 <td className="border border-gray-200 px-4 py-2">
-
                   <button className="text-blue-500 hover:underline">Edit</button>
                   <button className="text-red-500 hover:underline ml-2">Delete</button>
                 </td>

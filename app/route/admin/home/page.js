@@ -1,11 +1,34 @@
-"use client";
-import React from "react";
-import Image from "next/image";
-import Link from "next/link";
-import Navbar from "@/components/layout/Navbar";
-import { motion } from "framer-motion";
+'use client';
+import React, { useEffect } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import Navbar from '@/components/layout/Navbar';
+import { motion } from 'framer-motion';
+import { useRouter } from 'next/navigation';
+
+
 
 const Admin = () => {
+  const router = useRouter();
+
+  useEffect(() => {
+    const role = localStorage.getItem('role');
+  
+    if (!role) {
+      router.push('/');
+      return;
+    }
+  
+    try {
+      if (role !== 'admin') {
+        router.push('/hoc/unAuthorization');
+      }
+    } catch (error) {
+      alert("Your session has expired or is invalid. Please log in again.");
+      router.push('/');
+    }
+  }, [router]);
+  
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.5 }}
@@ -39,16 +62,6 @@ const Admin = () => {
             <Link href="/route/admin/createAgency">
               <button className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
                 Create Agency
-              </button>
-            </Link>
-            <Link href="/route/admin/createAgent">
-              <button className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
-                Create Agent
-              </button>
-            </Link>
-            <Link href="/route/admin/createUser">
-              <button className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
-                Create User
               </button>
             </Link>
           </div>
@@ -199,46 +212,6 @@ const Admin = () => {
                     href="/route/admin/property"
                   >
                     View List
-                    <svg
-                      fill="none"
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      className="w-4 h-4 ml-2"
-                      viewBox="0 0 24 24"
-                    >
-                      <path d="M5 12h14M12 5l7 7-7 7"></path>
-                    </svg>
-                  </Link>
-                </div>
-              </div>
-            </div>
-
-            {/* Total Amount Section */}
-            <div className="p-4 lg:w-1/2 md:w-full">
-              <div className="flex border-2 rounded-lg border-gray-200 border-opacity-50 p-8 sm:flex-row flex-col">
-                <div className="w-16 h-16 sm:mr-8 sm:mb-0 mb-4 inline-flex items-center justify-center rounded-full text-indigo-500 flex-shrink-0">
-                  <Image
-                    src="/Growth-Gradient2.gif"
-                    alt="Logo"
-                    unoptimized
-                    width={80}
-                    height={70}
-                  />
-                </div>
-                <div className="flex-grow">
-                  <h2 className="text-white text-lg title-font font-medium mb-3">
-                    Create Meeting
-                  </h2>
-                  <p className="leading-relaxed text-base">
-                    "User Task Payment Overview page, where you can efficiently track payment status of tasks assigned to users."
-                  </p>
-                  <Link
-                    className="mt-3 text-white hover:text-indigo-600 inline-flex items-center"
-                    href="/route/admin/createMeeting"
-                  >
-                    Create Meeting
                     <svg
                       fill="none"
                       stroke="currentColor"

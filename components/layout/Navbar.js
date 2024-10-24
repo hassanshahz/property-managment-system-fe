@@ -62,35 +62,44 @@ const Navbar = () => {
     };
   }, [lastScrollY]);
 
+
+
+  const routes = [
+    { path: '/route/nav/management', label: 'Management' },
+    { path: '/route/nav/contact', label: 'Contact Us' },
+    { path: '/route/nav/updates', label: 'Updates' },
+  ];
+
   return (
     <div
       className={`transition-transform duration-300 fixed top-0 w-full bg-gray-950 z-10 flex flex-col md:flex-row md:justify-start justify-center items-center py-1 shadow-md ${
         visible ? "translate-y-0" : "-translate-y-full"
       }`}
     >
-      <div className="my-3 md:mx-5">
+      <div className="my-2 md:mx-5">
         <Link href={"/"}>
           <Image src="/Home-Gradient.gif" alt="Logo" unoptimized width={40} height={25} />
         </Link>
       </div>
       
       <div className="nav">
-        <ul className="flex items-center space-x-2 font-bold md:text-md md:space-x-6 py-2">
-          {["/management", "/contactus", "/updates"].map((path) => (
-            <li key={path}>
-              <Link href={path}>
-                <div
-                  className={`hover:text-blue-500 ${
-                    router.pathname === path ? "text-blue-600" : "text-white"
-                  }`}
-                >
-                  {path.slice(1).charAt(0).toUpperCase() + path.slice(2)}
-                </div>
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </div>
+      <ul className="flex items-center space-x-2 font-bold md:text-md md:space-x-6 py-2">
+        {routes.map(({ path, label }) => (
+          <li key={path}>
+            <Link href={path}>
+              <div
+                className={`hover:text-blue-500 ${
+                  router.pathname === path ? 'text-blue-600' : 'text-white'
+                }`}
+              >
+                {label}
+              </div>
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </div>
+
 
       <div className="cart absolute right-0 top-5 mx-6 cursor-pointer flex">
         <Link href="/">

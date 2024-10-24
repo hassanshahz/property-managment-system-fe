@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
 import axios from 'axios';
+import { Replace } from 'lucide-react';
 
 const CreatePropertyForm = () => {
   const [formData, setFormData] = useState({
@@ -27,7 +28,7 @@ const CreatePropertyForm = () => {
     setSuccess('');
 
     try {
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem('token')?.replace(/"/g,"");
       const response = await axios.post('http://localhost:8080/api/property/register', formData, {
         headers: {
           Authorization: `Bearer ${token}`,

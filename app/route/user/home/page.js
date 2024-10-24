@@ -1,11 +1,32 @@
 "use client";
-import React from "react";
+import React, { useEffect } from 'react';
 import Image from "next/image";
 import Link from "next/link";
 import Navbar from "@/components/layout/Navbar";
 import { motion } from "framer-motion";
+import { useRouter } from 'next/navigation';
 
-const Admin = () => {
+
+const UserHome = () => {
+  const router = useRouter();
+
+  useEffect(() => {
+    const role = localStorage.getItem('role');
+  
+    if (!role) {
+      router.push('/');
+      return;
+    }
+  
+    try {
+      if (role !== 'user') {
+        router.push('/hoc/unAuthorization');
+      }
+    } catch (error) {
+      alert("Your session has expired or is invalid. Please log in again.");
+      router.push('/');
+    }
+  }, [router]);
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.5 }}
@@ -85,7 +106,7 @@ const Admin = () => {
               </div>
             </div>
 
-            {/* Agent's Details Section */}
+            {/* Property Create Section */}
             <div className="p-4 lg:w-1/2 md:w-full">
               <div className="flex border-2 rounded-lg border-gray-200 border-opacity-50 p-8 sm:flex-row flex-col">
                 <div className="w-16 h-16 sm:mr-8 sm:mb-0 mb-4 inline-flex items-center justify-center rounded-full text-indigo-500 flex-shrink-0">
@@ -99,16 +120,16 @@ const Admin = () => {
                 </div>
                 <div className="flex-grow">
                   <h2 className="text-white text-lg title-font font-medium mb-3">
-                    Agent's Details
+                    Create Property
                   </h2>
                   <p className="leading-relaxed text-base">
                     "Streamline your contact management process with powerful admin tools for optimal organization."
                   </p>
                   <Link
                     className="mt-3 text-white hover:text-indigo-600 inline-flex items-center"
-                    href="/route/admin/agent"
+                    href="/route/user/createProperty"
                   >
-                    Show Agents
+                    Create
                     <svg
                       fill="none"
                       stroke="currentColor"
@@ -125,85 +146,8 @@ const Admin = () => {
               </div>
             </div>
 
-            {/* Agencies Details Section */}
-            <div className="p-4 lg:w-1/2 md:w-full">
-              <div className="flex border-2 rounded-lg border-gray-200 border-opacity-50 p-8 sm:flex-row flex-col">
-                <div className="w-16 h-16 sm:mr-8 sm:mb-0 mb-4 inline-flex items-center justify-center rounded-full text-indigo-500 flex-shrink-0">
-                  <Image
-                    src="/Computer-Display-Gradient.gif"
-                    alt="Logo"
-                    unoptimized
-                    width={80}
-                    height={70}
-                  />
-                </div>
-                <div className="flex-grow">
-                  <h2 className="text-white text-lg title-font font-medium mb-3">
-                    Agencies Details
-                  </h2>
-                  <p className="leading-relaxed text-base">
-                    "As an administrator, you can assign tasks to users to ensure efficient project management and accountability."
-                  </p>
-                  <Link
-                    className="mt-3 text-white hover:text-indigo-600 inline-flex items-center"
-                    href="/route/admin/agency"
-                  >
-                    Show Agencies
-                    <svg
-                      fill="none"
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      className="w-4 h-4 ml-2"
-                      viewBox="0 0 24 24"
-                    >
-                      <path d="M5 12h14M12 5l7 7-7 7"></path>
-                    </svg>
-                  </Link>
-                </div>
-              </div>
-            </div>
 
-            {/* Property List Section */}
-            <div className="p-4 lg:w-1/2 md:w-full">
-              <div className="flex border-2 rounded-lg border-gray-200 border-opacity-50 p-8 sm:flex-row flex-col">
-                <div className="w-16 h-16 sm:mr-8 sm:mb-0 mb-4 inline-flex items-center justify-center rounded-full text-indigo-500 flex-shrink-0">
-                  <Image
-                    src="/Document-Task-Gradient.gif"
-                    alt="Logo"
-                    unoptimized
-                    width={80}
-                    height={70}
-                  />
-                </div>
-                <div className="flex-grow">
-                  <h2 className="text-white text-lg title-font font-medium mb-3">
-                    Property List
-                  </h2>
-                  <p className="leading-relaxed text-base">
-                    "On this page, you can view and manage the tasks assigned to users within your organization."
-                  </p>
-                  <Link
-                    className="mt-3 text-white hover:text-indigo-600 inline-flex items-center"
-                    href="/route/admin/property"
-                  >
-                    View List
-                    <svg
-                      fill="none"
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      className="w-4 h-4 ml-2"
-                      viewBox="0 0 24 24"
-                    >
-                      <path d="M5 12h14M12 5l7 7-7 7"></path>
-                    </svg>
-                  </Link>
-                </div>
-              </div>
-            </div>
+
           </div>
         </div>
       </section>
@@ -211,4 +155,4 @@ const Admin = () => {
   );
 };
 
-export default Admin;
+export default UserHome;
