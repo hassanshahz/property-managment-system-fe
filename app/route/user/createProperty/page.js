@@ -1,7 +1,9 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Replace } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+
+// import { Replace } from 'lucide-react';
 
 const CreatePropertyForm = () => {
   const [formData, setFormData] = useState({
@@ -13,6 +15,21 @@ const CreatePropertyForm = () => {
 
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+
+
+  const router = useRouter();
+
+  useEffect(() => {
+    const role = localStorage.getItem('role');
+  
+    if (!role) {
+      router.push('/');
+      return;
+    }
+  
+
+    
+  }, [router]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;

@@ -11,6 +11,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { useRouter } from 'next/navigation';
 
+
 export default function RegisterRole() {
   const {
     register,
@@ -22,7 +23,6 @@ export default function RegisterRole() {
   const [emailSent, setEmailSent] = useState(false);
   const [visiblePassword, setVisiblePassword] = useState(false);
 
-
   const router = useRouter();
   useEffect(() => {
     const role = localStorage.getItem('role');
@@ -33,7 +33,7 @@ export default function RegisterRole() {
     }
   
     try {
-      if (role !== 'admin') {
+      if (role !== 'agency') {
         router.push('/hoc/unAuthorization');
       }
     } catch (error) {
@@ -41,6 +41,7 @@ export default function RegisterRole() {
       router.push('/');
     }
   }, [router]);
+
 
   //---------------------------------------- ONSUBMIT FUNCTION ------------------------------------------
 
@@ -205,9 +206,9 @@ export default function RegisterRole() {
                 id="role"
                 className="mt-1 p-2 border rounded w-full"
               >
-                <option value="user">User</option>
+
                 <option value="agent">Agent</option>
-                <option value="agency">Agency</option>
+
               </select>
               {errors.role && (
                 <p className="text-red-500 text-sm">{errors.role.message}</p>
