@@ -13,7 +13,7 @@ const UserHome = () => {
     const fetchProperties = async () => {
       setLoading(true);
       try {
-        const token = localStorage.getItem('token');
+        const token = localStorage.getItem('token')?.replace(/"/g, "");
         const response = await axios.get('http://localhost:8080/api/property/user', {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -31,7 +31,7 @@ const UserHome = () => {
   }, []);
 
   return (
-    <div className="container mx-auto py-10">
+    <div className="container max-h-screen mx-auto py-10 mt-20">
       <h1 className="text-2xl font-bold mb-6">Welcome to Your Property Dashboard</h1>
 
       {/* Loading State */}
